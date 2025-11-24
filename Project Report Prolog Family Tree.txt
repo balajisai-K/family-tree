@@ -1,0 +1,73 @@
+Project Report: Prolog Family Tree Knowledge Base
+1. Project Title
+Family Tree Knowledge Base and Relationship Inference System
+
+2. Overview
+This project establishes a knowledge base using Prolog to define familial facts (gender, parent-child, spousal relationships) and a set of logical rules to infer complex family relationships (mother, father, sibling, grandparent, ancestor, etc.). The system allows a user to query for specific relationships between individuals within the defined family structure.
+
+3. Knowledge Base (Facts)
+The system is built upon a set of specific facts detailing the individuals and their direct relationships.
+
+3.1. Gender Facts
+Defines the sex of each named individual:
+
+Males: mohan, vijay, sanjay, kiran, arjun, deepak.
+
+Females: neeta, priya, rani, aisha, seem, rekha.
+
+3.2. Hierarchical Facts
+Defines the parent(Parent, Child) relationship:
+
+mohan is the father of neeta and vijay.
+
+neeta is the mother of priya and sanjay.
+
+...and so on, establishing a four-generation structure from Mohan/Rekha down to Arjun, Aisha, Deepak, and Seem.
+
+3.3. Spousal Facts
+Defines the married(Person1, Person2) relationship (defined symmetrically):
+
+mohan is married to rekha.
+
+vijay is married to priya.
+
+kiran is married to seem.
+
+arjun is married to aisha.
+
+4. Logic Rules (Inference Rules)
+The core of the project is the set of logical rules that enable the system to infer relationships that are not explicitly stated in the facts.
+
+Rule	Predicate	Definition
+R1	mother(Mother, Child)	A parent who is female.
+R2	father(Father, Child)	A parent who is male.
+R3	grandparent(G, GC)	A person who is a parent of a parent of the grandchild.
+R4	sibling(P1, P2)	Two distinct people who share the same parent.
+R5	sister(Sister, Person)	A sibling who is female.
+R6	brother(Brother, Person)	A sibling who is male.
+R7	aunt(Aunt, Child)	A sister of the child's parent.
+R8	uncle(Uncle, Child)	A brother of the child's parent.
+R9	ancestor(A, D)	Defined recursively: an ancestor is a direct parent of the descendant OR a parent of an existing ancestor of the descendant.
+
+
+5. Implementation and Execution
+5.1. Programming Language
+Prolog (Logic Programming)
+
+5.2. Query Examples and Results
+Query	Desired Output	Example Result (Based on KB)
+Find the mother of Sanjay.	mother(M, sanjay).	M = neeta
+Find all siblings of Vijay.	sibling(vijay, S).	S = neeta
+Find all ancestors of Arjun.	ancestor(A, arjun).	A = rani, A = vijay, A = mohan
+Find the aunts of Rani.	aunt(A, rani).	A = neeta (Neeta is the sister of Vijay, Rani's father).
+
+
+5.3. Key Features
+Declarative Programming: Relationships are declared, and the Prolog engine handles the traversal and logical inference.
+
+Recursion: The ancestor rule effectively uses recursion to find relationships across multiple generations.
+
+Consistency Check: The rules automatically ensure consistency (e.g., a mother must be both a parent and female).
+
+6. Conclusion
+The Prolog Family Tree project successfully demonstrates the power of logic programming in creating a robust and flexible knowledge base. By separating the explicit facts from the logical inference rules, the system efficiently determines complex, multi-step familial relationships based solely on the fundamental parent/2, male/1, and female/1 predicates. This forms a strong foundation for building more complex systems, such as genealogy databases or social network analysis tools.
